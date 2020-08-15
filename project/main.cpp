@@ -4,6 +4,8 @@
 #include <ctime>
 #include <ostream>
 
+#define NULL 0
+
 using namespace std;
 
 int abs(int n) {
@@ -11,9 +13,7 @@ int abs(int n) {
         return -1*n;
     }
     return n;
-}
-
-
+}       
 class List{
 
 private:
@@ -40,15 +40,32 @@ public:
             i++;
         }
         int * result = new int[this->len()];
-
+        
+        for (int j = 0 ; j < this->len() ; j++) {
+            result[j] = NULL;
+        }
+        
         // code
-
+        int random_variable_pointer;
+        int sum = 0;
+        while (sum != this->len()) {
+            cout << "here";
+            random_variable_pointer = time(0) % (this->len() % 10);
+            cout << random_variable_pointer;
+            if (result[random_variable_pointer] != NULL) {
+                result[random_variable_pointer] = tab[sum];
+                sum++;
+            }
+            cout << "x";
+        }
         // code
 
         this->list.clear();
+        cout << "wyczyszczono tablice";
         for(int j = 0 ; j < this->len() ; j++) {
             this->list.push_back(result[j]);
         }
+        cout << "end";
     }
 
     friend ostream& operator<<(ostream& os, const List& obj);
@@ -68,11 +85,19 @@ ostream& operator<<(ostream& os, const List& obj) {
 
 int main() {
     List tab = List();
-    tab.append(5);
+    tab.append(1);
+    tab.append(2);
+    tab.append(3);
     tab.append(4);
+    tab.append(5);
+    tab.append(6);
+    tab.append(7);
+    tab.append(8);
+    tab.append(9);
+    tab.append(10);
     cout << tab;
 
-    time_t t = time(0);  
-    cout << t << endl;
+    tab.random();
+    cout << tab;
     return 0;
 }
